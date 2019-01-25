@@ -168,7 +168,7 @@ public class MultiPodResource extends PrettyJsonResource {
 
   private Optional<StateStore> getStateStore(String sanitizedServiceName) {
     return multiServiceManager
-        .getService(sanitizedServiceName)
+        .getServiceSanitized(sanitizedServiceName)
         .map(AbstractScheduler::getStateStore);
   }
 }
