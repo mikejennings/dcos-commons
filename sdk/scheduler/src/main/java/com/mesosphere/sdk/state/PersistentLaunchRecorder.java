@@ -98,9 +98,11 @@ public class PersistentLaunchRecorder {
             .stream()
             .filter(recommendation -> recommendation instanceof StoreTaskInfoRecommendation)
             .map(StoreTaskInfoRecommendation.class::cast)
-            .sorted(Comparator.comparingInt(r -> r.getStateStoreTaskInfo().getTaskId().getValue().length()))
+            .sorted(Comparator.comparingInt(
+                    r -> r.getStateStoreTaskInfo().getTaskId().getValue().length())
+            )
             .iterator();
-    while(storeTaskRecommendations.hasNext()) {
+    while (storeTaskRecommendations.hasNext()) {
       StoreTaskInfoRecommendation offerRecommendation = storeTaskRecommendations.next();
       Protos.TaskInfo taskInfo = offerRecommendation.getStateStoreTaskInfo();
       Optional<PodInstance> podInstance = getPodInstance(taskInfo);
@@ -122,7 +124,9 @@ public class PersistentLaunchRecorder {
         taskStatus = Optional.of(taskStatusBuilder.build());
       }
 
-      logger.info("Persisting launch operation{} for {}", taskStatusDescription, taskInfo.getName());
+      logger.info("Persisting launch operation{} for {}",
+              taskStatusDescription,
+              taskInfo.getName());
 
       podInstance.ifPresent(podInstance1 ->
           updateTaskResourcesWithinResourceSet(podInstance1, taskInfo)
