@@ -99,7 +99,7 @@ public class PersistentLaunchRecorder {
             .filter(recommendation -> recommendation instanceof StoreTaskInfoRecommendation)
             .map(StoreTaskInfoRecommendation.class::cast)
             .sorted(Comparator.comparingInt(
-                    r -> r.getStateStoreTaskInfo().getTaskId().getValue().length())
+              r -> r.getStateStoreTaskInfo().getTaskId().getValue().length())
             )
             .iterator();
     while (storeTaskRecommendations.hasNext()) {
